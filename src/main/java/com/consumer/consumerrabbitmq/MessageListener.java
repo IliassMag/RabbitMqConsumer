@@ -12,8 +12,11 @@ import java.nio.file.Files;
 public class MessageListener {
 
     @RabbitListener(queues = MQConfig.QUEUE_EXCEL)
-    public void listener(CustomFile customFile) throws IOException {
-        File fileDestination = new File("C:\\CanevasDestination.xlsx");
-        Files.write(fileDestination.toPath(), customFile.bytesFromFile);
+    public void listenerFileExcel(CustomFile customFile) throws IOException {
+        System.out.println("-------" +
+                " Je suis le microservice CONSUMER du RabbitMq, j'ai reçu le fichier excel : "
+                + customFile.getFile() +" -------");
+        File fileDestination = new File("C:\\Financial_Data_Destination.xlsx");
+        Files.write(fileDestination.toPath(), customFile.getBytesFromFile());
     }
 }
